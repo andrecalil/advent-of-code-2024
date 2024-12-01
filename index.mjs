@@ -1,0 +1,58 @@
+import chalk from 'chalk';
+import fs from 'fs';
+import { select } from '@inquirer/prompts';
+import Challenge01 from './01/index.mjs';
+
+const welcome = fs.readFileSync('title.txt', 'utf8');                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                              
+console.log(chalk.white.bgRed(welcome)); 
+console.log(''); 
+
+const debug = await select({
+    message: chalk.blue.bold("Debug mode?"),
+    choices: [
+      {
+        name: chalk.white.bgBlue("Yes"),
+        value: true,
+        description: "Verbose",
+      },
+      {
+        name: chalk.white.bgBlue("No"),
+        value: false,
+        description: "Result only",
+      },
+    ],
+  });
+
+const inputMode = await select({
+  message: chalk.yellow.bold("Choose the mode you want to run:"),
+  choices: [
+    {
+      name: chalk.white.bgYellow("TEST"),
+      value: true,
+      description: "Test dataset",
+    },
+    {
+      name: chalk.white.bgYellow("CONTEST"),
+      value: false,
+      description: "Real dataset",
+    },
+  ],
+});
+
+const challenge = await select({
+  message: chalk.green.bold("Choose the challenge you want to run:"),
+  choices: [
+    {
+      name: chalk.white.bgGreen("01"),
+      value: Challenge01,
+      description: "Challenge 01",
+    },
+  ],
+});
+
+console.log('');
+
+challenge(inputMode, debug);
+
+console.log('');
