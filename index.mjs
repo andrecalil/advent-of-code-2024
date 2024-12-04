@@ -4,6 +4,7 @@ import { select } from '@inquirer/prompts';
 import Challenge01 from './01/index.mjs';
 import Challenge02 from './02/index.mjs';
 import Challenge03 from './03/index.mjs';
+import Challenge04 from './04/index.mjs';
 
 const welcome = fs.readFileSync('title.txt', 'utf8');                                                                                                                                                              
                                                                                                                                                                                                                                                                                                                                                               
@@ -45,6 +46,11 @@ const inputMode = await select({
 const challenge = await select({
   message: chalk.green.bold("Choose the challenge you want to run:"),
   choices: [
+    {
+      name: chalk.white.bgGreen("04"),
+      value: Challenge04,
+      description: "Challenge 04",
+    },
     {
       name: chalk.white.bgGreen("03"),
       value: Challenge03,
