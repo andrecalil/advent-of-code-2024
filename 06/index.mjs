@@ -40,7 +40,7 @@ export default function Challenge06(isTest = false, isDebug = false) {
     log("Current direction: " + currentDirection);
   };
 
-  const walk = () => {
+  const walk = (fromObstacle = false, obstacleCount = 0) => {
     let nextPosition = [...currentPosition];
     let newDirection = currentDirection;
 
@@ -75,20 +75,50 @@ export default function Challenge06(isTest = false, isDebug = false) {
       return;
     }
 
-    if (map[nextPosition[0]][nextPosition[1]] === "#") {
-      obstacles.push([...nextPosition]);
+    if (map[nextPosition[0]][nextPosition[1]] === "#" || [0,1,2,3,4,5,6,7,8,9].includes(map[nextPosition[0]][nextPosition[1]])) {
+      obstacleCount++;
+
+      obstacles.push({ coord: [...nextPosition], from: [...currentPosition], direction: newDirection, obstacleCount: obstacleCount });
+
+      map[nextPosition[0]][nextPosition[1]] = obstacleCount;
 
       currentDirection = newDirection;
-      return walk();
+      return walk(true, obstacleCount);
     }
 
-    map[currentPosition[0]][currentPosition[1]] = "X";
+    map[currentPosition[0]][currentPosition[1]] = currentDirection;
     spots++;
 
     currentPosition[0] = nextPosition[0];
     currentPosition[1] = nextPosition[1];
 
-    return walk();
+    return walk(fromObstacle, obstacleCount);
+  };
+
+  const findSquares = () => {
+    for(let i = 0; i < obstacles.length; i++) {
+        let current = obstacles[i];
+        const at = [...obstacles.from];
+
+        switch (current.direction) {
+          case "^":
+            nextPosition[0] -= 1;
+            newDirection = ">";
+            break;
+          case "v":
+            nextPosition[0] += 1;
+            newDirection = "<";
+            break;
+          case "<":
+            nextPosition[1] -= 1;
+            newDirection = "^";
+            break;
+          case ">":
+            nextPosition[1] += 1;
+            newDirection = "v";
+            break;
+        }
+    }
   };
 
   const part1 = () => {
@@ -112,6 +142,11 @@ export default function Challenge06(isTest = false, isDebug = false) {
 
   const part2 = () => {
     let count = 0;
+
+    log("Obstacles: " + obstacles.length);
+    obstacles.forEach((obstacle) => {
+      log(`  ${obstacle.coord} .. ${obstacle.from} .. ${obstacle.direction} .. ${obstacle.obstacleCount}`);
+    });
 
     return count;
   };
