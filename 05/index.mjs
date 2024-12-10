@@ -57,7 +57,6 @@ export default function Challenge05(isTest = false, isDebug = false) {
     log(`  Before: ${before}`);
     log(`  After: ${after}`);
 
-
     const pagesBefore = [...pageSet].slice(0, index);
     const pagesAfter = [...pageSet].slice(index + 1);
 
@@ -81,15 +80,14 @@ export default function Challenge05(isTest = false, isDebug = false) {
 
     for (let i = 0; i < set.length; i++) {
       const page = set[i];
-      
-      if(isValidPosition(i, page, set, false)) {
+
+      if (isValidPosition(i, page, set, false)) {
         chunk.push(page);
-      }
-      else break;
+      } else break;
     }
 
     return chunk;
-  }
+  };
 
   const isValidSet = (set) => {
     for (let i = 0; i < set.length; i++) {
@@ -143,7 +141,7 @@ export default function Challenge05(isTest = false, isDebug = false) {
     const validated = [];
 
     invalidSets.forEach((invalidSet) => {
-        log(`Invalid set with good chunk: ${findValidChunk(invalidSet.set)}`);
+      log(`Invalid set with good chunk: ${findValidChunk(invalidSet.set)}`);
       let currentSet = { ...invalidSet };
 
       wholeSet: while (!currentSet.valid) {

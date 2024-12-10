@@ -9,6 +9,7 @@ import Challenge05 from './05/index.mjs';
 import Challenge06 from './06/index.mjs';
 import Challenge07 from './07/index.mjs';
 import Challenge08 from './08/index.mjs';
+import Challenge09 from './09/index.mjs';
 
 const welcome = fs.readFileSync('title.txt', 'utf8');                                                                                                                                                              
                                                                                                                                                                                                                                                                                                                                                               
@@ -50,6 +51,11 @@ const inputMode = await select({
 const challenge = await select({
   message: chalk.green.bold("Choose the challenge you want to run:"),
   choices: [
+    {
+      name: chalk.white.bgGreen("09"),
+      value: Challenge09,
+      description: "Challenge 09",
+    },
     {
       name: chalk.white.bgGreen("08"),
       value: Challenge08,
