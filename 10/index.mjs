@@ -9,7 +9,7 @@ const log = (message) => {
   }
 };
 
-export default function Challenge09(isTest = false, isDebug = false) {
+export default function Challenge10(isTest = false, isDebug = false) {
   debug = isDebug;
 
   const data = fs.readFileSync(
